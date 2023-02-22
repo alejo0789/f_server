@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Archivos de la carpeta</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stilos.css') }}">
+
+    <style>
+        .card {
+            border: 1px solid #e2e2e2;
+            border-radius: 5px;
+            box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: 80px;
+            object-fit: contain;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Archivos de la carpeta {{ path }}</h1>
+        
+        <form action="{{ url_for('buscar_archivos') }}" method="get">
+            <div class="input-group">
+              <input type="text" class="form-control" name="fecha" placeholder="Buscar por fecha...">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">Buscar</button>
+              </div>
+            </div>
+          </form>
+          
+
+
+        <div class="row">
+          {% for archivo in archivos %}
+          <div class="col-lg-2 col-md-4 col-sm-6">
+            <div class="card">
+              <img class="card-img-top" src="../static/icons/excel.png" alt="Archivo de Excel">
+              <div class="card-body">
+                <h5 class="card-title--medium">{{ archivo['name'] }}</h5>
+                <h5 class="card-text--small">última modificación : {{ archivo['modified_time']}}</h5>
+                <a href="#" class="btn btn-secondary  btn-sm">Ver</a>
+                <a href="{{ archivo['file_path'] }}" class="btn btn-primary  btn-sm">Descargar</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        </div>
+    </div>
+</body>
+</html>

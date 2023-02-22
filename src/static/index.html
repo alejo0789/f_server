@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Archivos de la carpeta</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="pstyles.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+    <style>
+      body {
+        font-size: 16px;
+        line-height: 1.5;
+      }
+      .card {
+        border: 1px solid #e2e2e2;
+        border-radius: 5px;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
+          0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+          0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+        margin-bottom: 10px;
+        overflow: hidden;
+      }
+      .card-body {
+        padding: 15px;
+      }
+      .card-img-top {
+        width: 100%;
+        height: 80px;
+        object-fit: contain;
+      }
+      .card-title {
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin-bottom: 10px;
+      }
+      .card-text {
+        font-size: 0.9rem;
+        color: #6c757d;
+        margin-bottom: 15px;
+      }
+      .btn {
+        font-size: 0.8rem;
+        padding: 5px 10px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+      }
+      @media screen and (max-width: 767px) {
+        .card-img-top {
+          height: 150px;
+        }
+      }
+      @media screen and (max-width: 575px) {
+        .card-img-top {
+          height: 200px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <script>window.onload = function() {
+      generarCards();
+    };</script>
+    <div class="container">
+      <h1 class="mt-4 mb-4">Archivos de la carpeta</h1>
+      <div class="row">
+        <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+          <div class="card">
+            <img class="card-img-top" src="ruta/imagen-excel.png" alt="Archivo de Excel" />
+            <div class="card-body">
+              <h5 class="card-title">Archivo1.xlsx</h5>
+              <p class="card-text">Última modificación: 01/01/2022</p>
+              <a href="#" class="btn btn-secondary">Ver</a>
+              <a href="ruta/Archivo1.xlsx" class="btn btn-primary">Descargar</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+          <div class="card">
+            <img class="card-img-top" src="ruta/imagen-excel.png" alt="Archivo de Excel" />
+            <div class="card-body">
+              <h5 class="card-title">Archivo1.xlsx</h5>
+              <p class="card-text">Última modificación: 01/01/2022</p>
+              <a href="#" class="btn btn-secondary">Ver</a>
+              <a href="ruta/Archivo1.xlsx" class="btn btn-primary">Descargar</a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+            <div class="card">
+              <img class="card-img-top" src="ruta/imagen-excel.png" alt="Archivo de Excel" />
+              <div class="card-body">
+                <h5 class="card-title">Archivo1.xlsx</h5>
+                <p class="card-text">Última modificación: 01/01/2022</p>
+                <a href="#" class="btn btn-secondary">Ver</a>
+                <a href="ruta/Archivo1.xlsx" class="btn btn-primary">Descargar</a>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+              <div class="card">
+                <img class="card-img-top" src="ruta/imagen-excel.png" alt="Archivo de Excel" />
+                <div class="card-body">
+                  <h5 class="card-title">Archivo1.xlsx</h5>
+                  <p class="card-text">Última modificación: 01/01/2022</p>
+                  <a href="#" class="btn btn-secondary">Ver</a>
+                  <a href="ruta/Archivo1.xlsx" class="btn btn-primary">Descargar</a>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+                <div class="card">
+                  <img class="card-img-top" src="ruta/imagen-excel.png" alt="Archivo de Excel" />
+                  <div class="card-body">
+                    <h5 class="card-title">Archivo1.xlsx</h5>
+                    <p class="card-text">Última modificación: 01/01/2022</p>
+                    <a href="#" class="btn btn-secondary">Ver</a>
+                    <a href="ruta/Archivo1.xlsx" class="btn btn-primary">Descargar</a>
+                  </div>
+                </div>
+              <script>
+
+function generarCards() {
+  var archivos = [
+  {
+    nombre: "Archivo1.xlsx",
+    fecha: "01/01/2022",
+    imagen: "ruta/imagen-excel.png",
+    url: "ruta/Archivo1.xlsx"
+  },
+  {
+    nombre: "Archivo2.xlsx",
+    fecha: "02/01/2022",
+    imagen: "ruta/imagen-excel.png",
+    url: "ruta/Archivo2.xlsx"
+  },
+  // Agrega aquí los demás archivos
+];
+  var cardsContainer = document.getElementById("cards-container");
+  
+  for (var i = 0; i < archivos.length; i++) {
+    var archivo = archivos[i];
+    
+    var card = document.createElement("div");
+    card.classList.add("col-md-2");
+    
+    var imagen = document.createElement("img");
+    imagen.classList.add("card-img-top");
+    imagen.setAttribute("src", archivo.imagen);
+    imagen.setAttribute("alt", "Archivo de Excel");
+    
+    var body = document.createElement("div");
+    body.classList.add("card-body");
+    
+    var titulo = document.createElement("h5");
+    titulo.classList.add("card-title");
+    titulo.textContent = archivo.nombre;
+    
+    var fecha = document.createElement("p");
+    fecha.classList.add("card-text");
+    fecha.textContent = "Última modificación: " + archivo.fecha;
+    
+    var ver = document.createElement("a");
+    ver.classList.add("btn");
+    ver.classList.add("btn-secondary");
+    ver.textContent = "Ver";
+    
+    var descargar = document.createElement("a");
+    descargar.classList.add("btn");
+    descargar.classList.add("btn-primary");
+    descargar.textContent = "Descargar";
+    descargar.setAttribute("href", archivo.url);
+    
+    body.appendChild(titulo);
+    body.appendChild(fecha);
+    body.appendChild(ver);
+    body.appendChild(descargar);
+    
+    card.appendChild(imagen);
+    card.appendChild(body);
+    
+    cardsContainer.appendChild(card);
+  }
+}
+
+              </script>
+            

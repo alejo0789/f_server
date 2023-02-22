@@ -1,0 +1,16 @@
+#file-list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  #file-list li {
+    margin: 0 10px;
+  }
+  
+  #file-list img {
+    height: 50px;
+    margin-right: 10px;
+  }
