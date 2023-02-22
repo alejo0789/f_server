@@ -33,7 +33,11 @@ def get_files():
                 'file_path':file_path,
             })
     files = sorted(files, key=lambda f: f['modified_time'], reverse=True)
-    return jsonify(files)
+    #files=jsonify(files)
+    ##archivos = files.json()
+    return render_template('archivos.html', archivos=files)
+    
+   # return jsonify(files)
 
 
 @app.context_processor
