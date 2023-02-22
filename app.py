@@ -45,7 +45,7 @@ def utility_processor():
 
 @app.route('/listfiles')
 def listar_archivos():
-    api_url = 'http://localhost:5000/getfiles'
+    api_url = 'https://f-server2.onrender.com/getfiles'
     response = requests.get(api_url)
     archivos = response.json()
     return render_template('archivos.html', archivos=archivos)
