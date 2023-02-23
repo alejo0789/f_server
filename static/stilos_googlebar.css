@@ -1,0 +1,26 @@
+.search-container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.search-container .input-group {
+  background-color: #fff;
+  box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.2);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.search-container .form-control {
+  border: none;
+  box-shadow: none;
+}
+
+.search-container .btn {
+  background-color: #fff;
+  border: none;
+  box-shadow: none;
+}
+
+.search-container .btn i {
+  color: #5f6368;
+}

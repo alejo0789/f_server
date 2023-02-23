@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Archivos de la carpeta</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stilos_googlebar.css') }}">
+    <title>Mis Archivos:</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stilos.css') }}">
 
@@ -26,21 +28,34 @@
             padding-top: 10px;
         }
     </style>
+        <script>
+         function mostrarIframe(url) {
+  const googleUrl = "https://docs.google.com/gview?url=";
+  const encodedUrl = encodeURIComponent(url);
+  const iframeUrl = googleUrl + encodedUrl + "&embedded=true";
+  const iframe = document.createElement('iframe');
+  iframe.setAttribute('src', iframeUrl);
+  iframe.setAttribute('style', 'width: 100%; height: 500px; border: none;');
+  document.getElementById('iframe-container').appendChild(iframe);
+}
+        </script>
 </head>
 <body>
     <div class="container">
-        <h1>Archivos de la carpeta {{ path }}</h1>
+        <h1>Control de mis finanzas:</h1>
         
-        <form action="{{ url_for('buscar_archivos') }}" method="get">
+        <div class="search-container">
+          <form action="{{ url_for('buscar_archivos') }}" method="get">
             <div class="input-group">
               <input type="text" class="form-control" name="fecha" placeholder="Buscar por fecha...">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="submit">Buscar</button>
+                <button class="btn btn-primary" type="submit">
+                  <i class="fas fa-search"></i>
+                </button>
               </div>
             </div>
           </form>
-          
-
+        </div>
 
         <div class="row">
           {% for archivo in archivos %}
@@ -50,7 +65,9 @@
               <div class="card-body">
                 <h5 class="card-title--medium">{{ archivo['name'] }}</h5>
                 <h5 class="card-text--small">última modificación : {{ archivo['modified_time']}}</h5>
-                <a href="#" class="btn btn-secondary  btn-sm">Ver</a>
+                <a href="#" class="btn btn-secondary  btn-sm" onclick="mostrarIframe('{{ url_for('mostrar_archivo', archivo=archivo['file_path']) }}')">Ver</a>
+
+                <a href="{{ url_for('ver_archivo', archivo=archivo['file_path']) }}" class="btn btn-secondary  btn-sm">Ver no</a>
                 <a href="{{ archivo['file_path'] }}" class="btn btn-primary  btn-sm">Descargar</a>
               </div>
             </div>
@@ -58,6 +75,13 @@
           {% endfor %}
         </div>
         </div>
+    </div>
+
+    
+
+    <div id="iframe-container">
+  
+
     </div>
 </body>
 </html>

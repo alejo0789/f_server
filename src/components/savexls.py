@@ -6,37 +6,39 @@ import datetime
 # Esta función toma como entrada una cadena de texto y la guarda en un archivo Excel
 def guardar_en_excel(texto, numero):
 
-
-    # definir el trimestre 
+    # Define the trimester 
     trimestre_actual = define_trimestre(datetime.datetime.now())
-    # crea el nombre del archivo con el numero de la persona
-    name=numero+'_'+trimestre_actual+".xlsx"
-    #crea la ruta del archivo
-    ruta_archivo = os.path.join( 'src', 'files', name)
-
-    # Carga el archivo Excel existente o crea uno nuevo si no existe
- 
-    if os.path.isfile(ruta_archivo):
-        # Si el archivo existe, carga el libro Excel
-        libro_excel = openpyxl.load_workbook(ruta_archivo)
-        # Usa la hoja activa del libro Excel
-        hoja = libro_excel.active
     
+    # Creates the name of the file with the person's number and trimester
+    name = numero + '_' + trimestre_actual + ".xlsx"
+    
+    # Creates the path of the file
+    folder_path = os.path.join('src', 'files', numero)
+    ruta_archivo = os.path.join(folder_path, name)
+
+    # Creates the folder if it doesn't exist
+    if not os.path.exists(folder_path):
+        os.makedirs(folder_path)
+
+    # Load the existing Excel file or create a new one if it doesn't exist
+    if os.path.isfile(ruta_archivo):
+        # If the file exists, load the Excel workbook
+        libro_excel = openpyxl.load_workbook(ruta_archivo)
+        # Use the active sheet of the Excel workbook
+        hoja = libro_excel.active
     else:
-        # Si el archivo no existe, crea uno nuevo
+        # If the file doesn't exist, create a new one
         libro_excel = openpyxl.Workbook()
         hoja = libro_excel.active
 
     texto, valor = separar_texto_y_numeros(texto)
-    # Escribe el texto en la siguiente fila vacía en la columna A
+    
+    # Write the text in the next empty row in column A
     fila_vacia = hoja.max_row + 1
-    
     hoja.cell(row=fila_vacia, column=1, value=texto)
-    
-    
     hoja.cell(row=fila_vacia, column=2, value=valor)
 
-    # Guarda el archivo Excel en el disco
+    # Save the Excel file to disk
     libro_excel.save(ruta_archivo)
 
 

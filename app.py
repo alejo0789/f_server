@@ -15,26 +15,25 @@ app = Flask(__name__)
 def index():
     path = "src/files"
     archivos = os.listdir(path)
-    return render_template("archivos.html", archivos=archivos, path=path)
+    return render_template("index.html")
 
 
-@app.route('/getfiles')
-def get_files():
-    path = "src/files"  # replace with the path to your folder
+@app.route('/getfiles/<numero>')
+def get_files(numero):
+    folder_path = os.path.join('src', 'files', numero)
     files = []
-    for filename in os.listdir(path):
-        if os.path.isfile(os.path.join(path, filename)):
-            file_path = os.path.join(path, filename)
-            modified_time = os.path.getmtime(file_path)
-            modified_time_str = datetime.fromtimestamp(modified_time).strftime("%d/%m/%Y")
-            files.append({
-                'name': filename,
-                'modified_time': modified_time_str,
-                'file_path':file_path,
-            })
-    files = sorted(files, key=lambda f: f['modified_time'], reverse=True)
-    #files=jsonify(files)
-    ##archivos = files.json()
+    if os.path.exists(folder_path):
+        for filename in os.listdir(folder_path):
+            if os.path.isfile(os.path.join(folder_path, filename)):
+                file_path = os.path.join(folder_path, filename)
+                modified_time = os.path.getmtime(file_path)
+                modified_time_str = datetime.fromtimestamp(modified_time).strftime("%d/%m/%Y")
+                files.append({
+                    'name': filename,
+                    'modified_time': modified_time_str,
+                    'file_path': file_path,
+                })
+        files = sorted(files, key=lambda f: f['modified_time'], reverse=True)
     return render_template('archivos.html', archivos=files)
     
    # return jsonify(files)
@@ -59,6 +58,15 @@ def listar_archivos():
 def descargar_archivo(filename):
     archivo_path = 'src/files/' + filename
     return send_file(archivo_path, as_attachment=True)
+
+@app.route('/ver_archivo/<path:archivo>')
+def ver_archivo(archivo):
+    return render_template('ver_archivo.html', archivo=archivo)
+
+@app.route('/mostrar_archivo/<path:archivo>')
+def mostrar_archivo(archivo):
+    return send_file(archivo)
+
 
 from datetime import datetime
 
