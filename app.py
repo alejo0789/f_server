@@ -56,7 +56,7 @@ def listar_archivos():
 
 @app.route('/descargar/<filename>')
 def descargar_archivo(filename):
-    archivo_path = 'src/files/' + filename
+    archivo_path = 'files/' + filename
     return send_file(archivo_path, as_attachment=True)
 
 @app.route('/ver_archivo/<path:archivo>')
