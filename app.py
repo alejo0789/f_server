@@ -54,10 +54,12 @@ def listar_archivos():
     return render_template('archivos.html', archivos=archivos)
 
 
-@app.route('/descargar/<filename>')
-def descargar_archivo(filename):
-    archivo_path = 'files/' + filename
-    return send_file(archivo_path, as_attachment=True)
+@app.route('/descargar/<ruta_archivo>')
+def descargar_archivo(ruta_archivo):
+    # Verificar que la ruta del archivo existe
+    # y extraer el nombre del archivo de la ruta
+    nombre_archivo = os.path.basename(ruta_archivo)
+
 
 @app.route('/ver_archivo/<path:archivo>')
 def ver_archivo(archivo):
