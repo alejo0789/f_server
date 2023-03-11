@@ -59,6 +59,7 @@ def descargar_archivo(ruta_archivo):
     # Verificar que la ruta del archivo existe
     # y extraer el nombre del archivo de la ruta
     nombre_archivo = os.path.basename(ruta_archivo)
+    print(ruta_archivo)
     return send_file(ruta_archivo, as_attachment=True)
 
 
