@@ -66,9 +66,9 @@ def descargar_archivo(ruta_archivo):
 def ver_archivo(archivo):
     return render_template('ver_archivo.html', archivo=archivo)
 
-@app.route('/mostrar_archivo/<path:archivo>')
+@app.route('/mostrar_archivo/<archivo>')
 def mostrar_archivo(archivo):
-    return send_file(archivo)
+    return send_file('src/files/573105487076/'+archivo, as_attachment=True)
 
 
 from datetime import datetime
