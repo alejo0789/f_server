@@ -54,9 +54,9 @@ def listar_archivos():
     return render_template('archivos.html', archivos=archivos)
 
 
-@app.route('/descargar/<archivo>')
-def descargar_archivo(archivo):
-    match = re.search(r'^(\d+)_', archivo)
+@app.route('/descargar/<archivo_name>')
+def descargar_archivo(archivo_name):
+    match = re.search(r'^(\d+)_', archivo_name)
     if match:
      folder = match.group(1)
     else:
@@ -68,7 +68,7 @@ def descargar_archivo(archivo):
 
 
     # Usar la función send_file para enviar el archivo al usuario
-    return send_file("src/files/"+folder+"/"+archivo, as_attachment=True)
+    return send_file("src/files/"+folder+"/"+archivo_name, as_attachment=True)
 
 
 @app.route('/descargar2/<ruta_archivo>')
