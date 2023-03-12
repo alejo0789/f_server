@@ -59,15 +59,16 @@ def descargar_archivo(archivo):
     match = re.search(r'^(\d+)_', archivo)
     if match:
      folder = match.group(1)
-    
-    folder_path = os.path.join('src', 'files', folder, archivo)
+    else:
+      folder=573105487076
+    #folder_path = os.path.join('src', 'files', folder, archivo)
     # Verificar que la ruta del archivo existe
     # y extraer el nombre del archivo de la ruta
    
 
 
     # Usar la función send_file para enviar el archivo al usuario
-    return send_file(folder_path, as_attachment=True)
+    return send_file("src/files/",+folder+"/"+archivo, as_attachment=True)
 
 
 @app.route('/descargar2/<ruta_archivo>')
