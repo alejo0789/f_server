@@ -80,7 +80,7 @@ def descargar_archivo2(ruta_archivo):
     print(ruta_archivo)
     print("Nombre "+nombre_archivo)
     ruta_archivostring=ruta_archivo
-    return render_template('archivos.html', folder=folder_path, ruta=ruta_archivostring)
+    return send_file('src/files/573105487076/573105487076_ene-mar.xlsx' as_attachment=True)
 
 @app.route('/ver_archivo/<path:archivo>')
 def ver_archivo(archivo):
