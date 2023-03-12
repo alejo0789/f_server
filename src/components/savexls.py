@@ -58,30 +58,28 @@ def guardar_en_excel(texto, numero):
 
 
 # Esta función toma como entrada una cadena de texto y devuelve dos listas, una con las letras y otra con los números
+
 def separar_texto_y_numeros(cadena):
-    # Reemplazar todos los caracteres que no son letras ni números por espacios
-    cadena = re.sub(r'[^\w\s\.]', ' ', cadena)
-    
-    # Dividir la cadena en palabras
-    palabras = cadena.split()
+    # Buscar grupos de letras y grupos de números en la cadena
+    grupos = re.findall(r'[a-zA-Z]+|\d+', cadena)
     
     # Inicializar listas para texto y números
     texto = []
     numeros = []
     
-    for palabra in palabras:
-        # Intentar convertir la palabra a un número
+    for grupo in grupos:
+        # Intentar convertir el grupo a un número
         try:
-            numero = float(palabra)
+            numero = float(grupo)
             numeros.append(numero)
         except ValueError:
-            # Si la palabra no es un número, agregarla a la lista de texto
-            texto.append(palabra)
+            # Si el grupo no es un número, agregarlo a la lista de texto
+            texto.append(grupo)
     
     # Unir la lista de texto en una sola cadena con espacios entre cada palabra
     texto = ' '.join(texto)
-    
-    return texto, numeros[0]
+   
+    return texto, numeros[0] if numeros else None
 
 
 
