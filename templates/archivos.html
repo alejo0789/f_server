@@ -70,7 +70,7 @@
                 <a href="#" class="btn btn-secondary  btn-sm" onclick="mostrarIframe('{{ url_for('mostrar_archivo', archivo=archivo['file_path']) }}')">Ver</a>
 
                 <a href="{{ url_for('ver_archivo', archivo=archivo['file_path']) }}" class="btn btn-secondary  btn-sm">Ver no</a>
-            <a href="{{ url_for('descargar_archivo', ruta_archivo=archivo['file_path']) }}" class="btn btn-primary btn-sm">{{folder}}Descargar {{ruta }}</a>
+                        <a href="{{ url_for('descargar_archivo', archivo=archivo['name']) }}" class="btn btn-primary btn-sm">Descargar</a>
               </div>
             </div>
           </div>
