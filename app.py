@@ -68,7 +68,7 @@ def descargar_archivo(archivo):
 
 
     # Usar la función send_file para enviar el archivo al usuario
-    return send_file("src/files/",+folder+"/"+archivo, as_attachment=True)
+    return send_file("src/files/"+folder+"/"+archivo, as_attachment=True)
 
 
 @app.route('/descargar2/<ruta_archivo>')
