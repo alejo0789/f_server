@@ -73,6 +73,7 @@ def ver_archivo(archivo):
 
 @app.route('/mostrar_archivo/<archivo>')
 def mostrar_archivo(archivo):
+    print("entrando")
     return send_file('src/files/573105487076/'+archivo, as_attachment=True)
 
 
