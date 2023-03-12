@@ -65,6 +65,16 @@ def descargar_archivo(ruta_archivo):
     ruta_archivostring=ruta_archivo
     return send_file( folder_path, as_attachment=True)
 
+@app.route('/descargar2/<ruta_archivo>')
+def descargar_archivo(ruta_archivo):
+    folder_path = os.path.join(ruta_archivo)
+    # Verificar que la ruta del archivo existe
+    # y extraer el nombre del archivo de la ruta
+    nombre_archivo = os.path.basename(ruta_archivo)
+    print(ruta_archivo)
+    print("Nombre "+nombre_archivo)
+    ruta_archivostring=ruta_archivo
+    return render_template('archivos.html', folder=folder_path, ruta=ruta_archivostring)
 
 @app.route('/ver_archivo/<path:archivo>')
 def ver_archivo(archivo):
