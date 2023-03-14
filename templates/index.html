@@ -1,47 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="https://kit.fontawesome.com/a076d05399.js">
-    <meta charset="UTF-8">
-    <title>Archivos de la carpeta</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stilos_googlebar.css') }}">
+	<title>Plantilla iCloud con Bootstrap</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../static/stilos.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <div class="search-container">
-        <form action="{{ url_for('buscar_archivos') }}" method="get">
-          <div class="input-group">
-            <input type="text" class="form-control" name="fecha" placeholder="Buscar por fecha...">
-            <div class="input-group-append">
-              <button class="btn btn-primary" type="submit">
-                <i class="fas fa-search"></i>
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
-        <div class="row">
-          {% for archivo in archivos %}
-          <div class="col-lg-2 col-md-4 col-sm-6">
-            <div class="card">
-              <img class="card-img-top" src="../static/icons/excel.png" alt="Archivo de Excel">
-              <div class="card-body">
-                <h5 class="card-title--medium">{{ archivo['name'] }}</h5>
-                <h5 class="card-text--small">última modificación : {{ archivo['modified_time']}}</h5>
-                <a href="#" class="btn btn-secondary  btn-sm">Ver</a>
-                <a href="{{ archivo['file_path'] }}" class="btn btn-primary  btn-sm">Descargar</a>
-              </div>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-    </div>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="#">iCloud</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Inicio</a>
+				</li>
+			
+			</ul>
+		</div>
+	</nav>
+	<div class="container-fluid text-center">
     
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+		<h1>Bienvenido a iCloud</h1>
+		<p class="destacado">El mejor sistema para el control de tus finanzas. 
+     </p>
+	</div>
+
+  <div class="container">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col">
+        <div class="card">
+          <div class="card-body ">
+            
+            <img src="../static/icons/whatsappfondo.png">
+        
+            <b> Controla el dinero desde tu Whatsapp</b><br>
+            Con nuestro unico sistema, podrás monitorear facilmente tus finanzas desde cualquier lugar y en cualquier momento desde tu whatasapp.
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <img src="../static/icons/excelindex2.png">  
+            <b> Controla el dinero desde tu Whatsapp</b><br>
+            Con nuestro unico sistema, podrás monitorear facilmente tus finanzas desde cualquier lugar y en cualquier momento desde tu whatasapp.
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <div class="imag2">
+            <img  src="../static/icons/onedrive.png" >  <img src="../static/icons/pngwing.com.png"><br>
+            <b> Controla el dinero desde tu Whatsapp</b><br>
+            Con nuestro unico sistema, podrás monitorear facilmente tus finanzas desde cualquier lugar y en cualquier momento desde tu whatasapp.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
