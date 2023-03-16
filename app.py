@@ -19,6 +19,13 @@ def index():
     return render_template("index.html")
 
 
+
+@app.route("/registro")
+def registro():
+
+    return render_template("registro.html")
+
+
 @app.route('/getfiles/<numero>')
 def get_files(numero):
     folder_path = os.path.join('src', 'files', numero)
