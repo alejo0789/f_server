@@ -5,11 +5,18 @@ import requests
 import glob
 import fnmatch
 import re
+from flask_sqlalchemy import SQLAlchemy
+
 
 from src.components.savexls import guardar_en_excel
 
 app = Flask(__name__)
 
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://userdb_r5u6_user:hAYrARqcSxV8zkxzMt2QhT1Tl5vpP1Ea@dpg-cg9k6epmbg54mbfpjv0g-a/userdb_r5u6" #ojo modificar 
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
+db = SQLAlchemy(app)
 @app.route('/')
 
 @app.route("/")

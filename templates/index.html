@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 <head>
 	<title>NoteAir</title>
@@ -7,22 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="#">NoteAir</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNav">
-			<ul class="navbar-nav">
-				<li class="nav-item active">
-			
-				</li>
-			
-			</ul>
-		</div>
-	</nav>
+  {% include 'navigation.html' %}
+	
 	<div class="container-fluid text-center">
-    
+    <br>    <br>    <br> 
 		<h1>Bienvenido a NoteAir</h1>
 		<p class="destacado">El mejor sistema para el control de tus finanzas. 
      </p>
@@ -71,16 +60,7 @@
     </div>
 
   </div>
-  <footer>
-    <nav>
-      <ul class="text-footer">
-        <li><a href="#">System Status</a></li>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Terms &amp; Conditions</a></li>
-      </ul>
-    </nav>
-    <p class="text-footer">&copy; 2023 NoteAir. All rights reserved.</p>
-  </footer>
+  {% include 'footer.html' %}
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js"></script>

@@ -6,8 +6,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
     margin: 0 auto;
+    margin-top: 50px; /* Igual a la altura de la barra de navegación */
+    max-height: fit-content;
+    height: calc(80vh + 70px) !important; /* Altura del viewport menos la altura de la barra de navegación */
+    
+        max-width: 600px;
+        width: 100%;
+      
   }
   
 
@@ -77,52 +83,4 @@ body {
     
   }
 
-  footer {
-    background-color: #f2f2f2;
-    padding: 20px;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 40px;
-    color: white;
- 
-  }
   
-  nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: flex-end;
-    font-size: 10px;
-    color: #999;
-  }
-  
-  nav li {
-    margin-left: 20px;
-    color: #999;
-  }
-  
-  nav a {
-    color: #999;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-.text-footer {
-
-    text-align: center;
-    font-size: 10px;
-    color: #999;
-  }
-  @media screen and (max-width: 600px) {
-    nav ul {
-      display: block;
-      text-align: center;
-    }
-    nav li {
-      display: inline-block;
-      margin: 10px;
-    }
-  }
- 
