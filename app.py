@@ -6,17 +6,22 @@ import glob
 import fnmatch
 import re
 from flask_sqlalchemy import SQLAlchemy
-
+from models import db
+from models import users
 
 from src.components.savexls import guardar_en_excel
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://userdb_r5u6_user:hAYrARqcSxV8zkxzMt2QhT1Tl5vpP1Ea@dpg-cg9k6epmbg54mbfpjv0g-a/userdb_r5u6" #ojo modificar 
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://userdb_r5u6_user:hAYrARqcSxV8zkxzMt2QhT1Tl5vpP1Ea@dpg-cg9k6epmbg54mbfpjv0g-a.oregon-postgres.render.com/userdb_r5u6" #ojo modificar 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 db = SQLAlchemy(app)
+
+with app.app_context():
+    db.create_all()
+
 @app.route('/')
 
 @app.route("/")
@@ -31,6 +36,21 @@ def index():
 def registro():
 
     return render_template("registro.html")
+
+
+
+@app.route("/add_user", methods=['POST'])
+
+def add_user():
+    name = request.form['nombre']
+    tel = request.form['telefono']
+    email = request.form['email']
+    password = request.form['password']
+    #email = request.form['email']
+    user = users(name=name, email=email, telephone=tel, password=password)
+    db.session.add(user)
+    db.session.commit()
+    return 'User registered successfully'
 
 
 @app.route('/getfiles/<numero>')
