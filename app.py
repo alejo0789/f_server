@@ -44,13 +44,18 @@ def registro():
 
 def add_user():
     name = request.form['nombre']
-    tel = request.form['telefono']
+    tel = str(request.form['telefono'])
     email = request.form['email']
     password = request.form['password']
     #email = request.form['email']
     user = users(name=name, email=email, telephone=tel, password=password)
     db.session.add(user)
     db.session.commit()
+    #send data to whatsapp and get notification welcome
+    url_api_Wp="https://wp-api-render.onrender.com/whatsapp"
+    myobj = {'texto': "hola", 'number':tel}
+
+    requests.post(url_api_Wp, data = myobj)
     return 'User registered successfully'
 
 
