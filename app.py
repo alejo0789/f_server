@@ -51,9 +51,10 @@ def add_user():
     user = users(name=name, email=email, telephone=tel, password=password)
     db.session.add(user)
     db.session.commit()
+
     #send data to whatsapp and get notification welcome
     url_api_Wp="https://wp-api-render.onrender.com/whatsapp"
-    myobj = {'texto': "hola", 'number':tel}
+    myobj = {"texto": "hola", "number":tel}
 
     requests.post(url_api_Wp, data = myobj)
     return 'User registered successfully'
