@@ -8,12 +8,14 @@ import re
 from flask_sqlalchemy import SQLAlchemy
 from models import db
 from models import users
+import json
 
 from src.components.savexls import guardar_en_excel
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://userdb_r5u6_user:hAYrARqcSxV8zkxzMt2QhT1Tl5vpP1Ea@dpg-cg9k6epmbg54mbfpjv0g-a/userdb_r5u6"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://userdb_r5u6_user:hAYrARqcSxV8zkxzMt2QhT1Tl5vpP1Ea@dpg-cg9k6epmbg54mbfpjv0g-a.oregon-postgres.render.com/userdb_r5u6" 
+#"postgresql://userdb_r5u6_user:hAYrARqcSxV8zkxzMt2QhT1Tl5vpP1Ea@dpg-cg9k6epmbg54mbfpjv0g-a/userdb_r5u6"
 #"postgresql://userdb_r5u6_user:hAYrARqcSxV8zkxzMt2QhT1Tl5vpP1Ea@dpg-cg9k6epmbg54mbfpjv0g-a.oregon-postgres.render.com/userdb_r5u6" #ojo modificar 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -44,7 +46,7 @@ def registro():
 
 def add_user():
     name = request.form['nombre']
-    tel = str(request.form['telefono'])
+    tel = request.form['telefono']
     email = request.form['email']
     password = request.form['password']
     #email = request.form['email']
@@ -53,10 +55,17 @@ def add_user():
     db.session.commit()
 
     #send data to whatsapp and get notification welcome
-    url_api_Wp="https://wp-api-render.onrender.com/whatsapp"
-    myobj = {"texto": "hola", "number":tel}
+    #url_api_Wp="https://wp-api-render.onrender.com/whatsapp"
+    url_api_Wp = "http://localhost:3000/whatsapp"
+    data = {"texto": "hola", "number": tel}
 
-    requests.post(url_api_Wp, data = myobj)
+    json_data = json.dumps(data)
+    print(json_data)
+    headers = {'Content-type': 'application/json'}
+
+    response = requests.post(url_api_Wp, data=json_data, headers=headers)
+
+    print(response)
     return 'User registered successfully'
 
 
