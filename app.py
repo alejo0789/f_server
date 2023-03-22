@@ -14,7 +14,7 @@ from src.components.savexls import guardar_en_excel
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://userdb_r5u6_user:hAYrARqcSxV8zkxzMt2QhT1Tl5vpP1Ea@dpg-cg9k6epmbg54mbfpjv0g-a.oregon-postgres.render.com/userdb_r5u6" 
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://userdb_r5u6_user:hAYrARqcSxV8zkxzMt2QhT1Tl5vpP1Ea@dpg-cg9k6epmbg54mbfpjv0g-a/userdb_r5u6" 
 #"postgresql://userdb_r5u6_user:hAYrARqcSxV8zkxzMt2QhT1Tl5vpP1Ea@dpg-cg9k6epmbg54mbfpjv0g-a/userdb_r5u6"
 #"postgresql://userdb_r5u6_user:hAYrARqcSxV8zkxzMt2QhT1Tl5vpP1Ea@dpg-cg9k6epmbg54mbfpjv0g-a.oregon-postgres.render.com/userdb_r5u6" #ojo modificar 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -44,6 +44,7 @@ def registro():
 
 @app.route("/add_user", methods=['POST'])
 
+
 def add_user():
     name = request.form['nombre']
     tel = request.form['telefono']
@@ -55,8 +56,8 @@ def add_user():
     db.session.commit()
 
     #send data to whatsapp and get notification welcome
-    #url_api_Wp="https://wp-api-render.onrender.com/whatsapp"
-    url_api_Wp = "http://localhost:3000/whatsapp"
+    url_api_Wp="https://wp-api-render.onrender.com/whatsapp"
+    #url_api_Wp = "http://localhost:3000/whatsapp"
     data = {"texto": "hola", "number": tel}
 
     json_data = json.dumps(data)
