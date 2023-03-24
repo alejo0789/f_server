@@ -1,14 +1,10 @@
 
-html {
-  min-height: 100%;
-  position: relative;
-}
+
 body {
   background-color: #FBFBFD;
   margin: 0;
-  margin-bottom: 40px;
+  padding-top: 20px; /* Ajusta el espacio para la barra de navegación */
 }
-
 
 .navbar {
   position: fixed;
@@ -16,13 +12,12 @@ body {
   left: 0;
   width: 100%;
   height: 50px;
+  background-color: #fff;
+  z-index: 999;
+}
 
-}
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
+
+
 
 .destacado {
   font-size: 1.5rem;
@@ -43,37 +38,47 @@ body {
     flex-basis: 100%;
   }
 }
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 
+form > * {
+  margin-bottom: 10px;
+}
 
+.card {
+  border-radius: 10px;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  max-width: 90%;
+  margin: auto;
+}
+
+.card-body {
+  padding: 20px;
+  text-align: left;
+  justify-content: center;
+  align-items: center;
+}
 
 .card-text--small {
-    font-size: 0.8rem;
-  }
-  .card-title--medium{
-    font-size: 0.9rem;
-  }
+  font-size: 0.6rem;
+}
 
-    .card {
-       border-radius: 10PX;
-       border: none;
-       box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        margin-bottom: 10px;
-        overflow: hidden;
-       
-    }
-
-    .card-body {
-        padding: 20px;
-        text-align: left;
-       
-    }
+.card-title--medium {
+  font-size: 0.8rem;
+}
 
     .card-body img {
       display: block;
       margin: 0 auto;
-      width: 40%; /* establece un ancho fijo para todas las imágenes */
-      height: 40%; /* establece una altura fija para todas las imágenes */
+      width: 30%; /* establece un ancho fijo para todas las imágenes */
+      height: 30%; /* establece una altura fija para todas las imágenes */
       object-fit: cover;
+      align-self: center;
+  
     }
     .imag2 img {
       display: inline-block;
@@ -105,51 +110,53 @@ body {
     .registro:focus {
       outline: none; /* Elimina el borde de enfoque al hacer clic en el botón */
       }
-    footer {
-      background-color: #f2f2f2;
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      height: 40px;
-      color: white;
-   
-    }
-    
-    nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: flex-end;
-      font-size: 10px;
-      color: #999;
-    }
-    
-    nav li {
-      margin-left: 20px;
-      color: #999;
-    }
-    
-    nav a {
-      color: #999;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    
-.text-footer {
+      
+      
+      footer {
+        margin-top: 20px;
+        background-color: #f2f2f2;
+      
+        bottom: 0;
+        width: 100%;
+        height: 40px;
   
-      text-align: center;
-      font-size: 10px;
-      color: #999;
-    }
-    @media screen and (max-width: 600px) {
+     
+      }
+      
       nav ul {
-        display: block;
-        text-align: center;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: flex-end;
+        font-size: 10px;
+        color: #999;
       }
+      
       nav li {
-        display: inline-block;
-        margin: 10px;
+        margin-left: 20px;
+        color: #999;
       }
-    }
-   
+      
+      nav a {
+        color: #999;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      
+  .text-footer {
+    
+        text-align: center;
+        font-size: 10px;
+        color: #999;
+      }
+      @media screen and (max-width: 600px) {
+        nav ul {
+          display: block;
+          text-align: center;
+        }
+        nav li {
+          display: inline-block;
+          margin: 10px;
+        }
+      }

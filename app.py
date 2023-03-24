@@ -14,7 +14,7 @@ from src.components.savexls import guardar_en_excel
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://userdb_r5u6_user:hAYrARqcSxV8zkxzMt2QhT1Tl5vpP1Ea@dpg-cg9k6epmbg54mbfpjv0g-a/userdb_r5u6" 
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://userdb_r5u6_user:hAYrARqcSxV8zkxzMt2QhT1Tl5vpP1Ea@dpg-cg9k6epmbg54mbfpjv0g-a/userdb_r5u6"
 #"postgresql://userdb_r5u6_user:hAYrARqcSxV8zkxzMt2QhT1Tl5vpP1Ea@dpg-cg9k6epmbg54mbfpjv0g-a/userdb_r5u6"
 #"postgresql://userdb_r5u6_user:hAYrARqcSxV8zkxzMt2QhT1Tl5vpP1Ea@dpg-cg9k6epmbg54mbfpjv0g-a.oregon-postgres.render.com/userdb_r5u6" #ojo modificar 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -180,6 +180,13 @@ def register():
     # Devolver una respuesta JSON
     response = {'message': 'Usuario registrado exitosamente '+ texto}
     return jsonify(response)
+
+
+@app.route('/terminos_y_condiciones')
+def terminos():
+   
+    return render_template('terminos.html')
+
 
 
 if __name__ == '__main__':

@@ -15,12 +15,12 @@
         <div class="card-body ">
           
 
- 
-            <form action="/add_user" onsubmit="return validateForm()"  method="POST" >
-            <div style="text-align: center;">
+          <div style="text-align: center;">
             <img src="../static/icons/whatsappfondo.png">
    
               </div>
+            <form action="/add_user" onsubmit="return validateForm()"  method="POST" >
+     
               <label for="nombre">Nombre completo</label>
               <input type="text"  id="name" name="nombre" required>
               
@@ -35,6 +35,14 @@
               
               <label for="password_confirm">Repetir Contraseña</label>
               <input type="password" id="password_confirm" name="password_confirm" required>
+              <div>
+                <input type="checkbox" id="terms_and_conditions" name="terms_and_conditions" required>
+                <span>
+                  Acepto los <a href="/terminos_y_condiciones" style="color: green; text-decoration: underline;">términos y condiciones</a>
+                </span>
+              </div>
+              </br>
+
             <input type="submit" value="Registrarse">
           </form>
         </div>
