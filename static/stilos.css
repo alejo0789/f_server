@@ -33,11 +33,9 @@ body {
 }
 
 /* Media Query para dispositivos móviles */
-@media (max-width: 767px) {
-  .card {
-    flex-basis: 100%;
-  }
-}
+
+
+
 form {
   display: flex;
   flex-direction: column;
@@ -48,6 +46,53 @@ form > * {
   margin-bottom: 10px;
 }
 
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  }
+  
+  .card {
+  flex-basis: calc((100% - 20px) / 3); /* Establece el ancho de cada card en un tercio del contenedor padre, teniendo en cuenta un margen derecho de 20px */
+  margin-bottom: 20px;
+  height: 300px; 
+  border-radius: 10px;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  max-width: 90%;
+  margin: auto;
+  }
+  
+  .card-body {
+  padding: 20px;
+  text-align: left;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Establece una altura del 100% para el contenido de la card */
+  }
+  
+  .card-text--small {
+  font-size: 0.6rem;
+  }
+  
+  .card-title--medium {
+  font-size: 0.8rem;
+  }
+  
+  .card-body img {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  height: 60%; /* Establece una altura fija para las imágenes en las cards */
+  object-fit: cover;
+  align-self: center;
+  }
+
+
+
+
+/*
 .card {
   border-radius: 10px;
   border: none;
@@ -71,6 +116,9 @@ form > * {
   font-size: 0.8rem;
 }
 
+  */
+
+
     .card-body img {
       display: block;
       margin: 0 auto;
@@ -78,7 +126,6 @@ form > * {
       height: 30%; /* establece una altura fija para todas las imágenes */
       object-fit: cover;
       align-self: center;
-  
     }
     .imag2 img {
       display: inline-block;
@@ -86,6 +133,31 @@ form > * {
       max-height: 220px;
       margin: 0;
     }
+
+
+    @media (max-width: 767px) {
+      .card {
+      flex-basis: 100%;
+      margin-bottom: 20px;
+      }
+      .card-body img {
+      width: 100%;
+      max-width: 120px; /* Establece un ancho máximo para las imágenes en dispositivos móviles */
+      height: auto;
+      object-fit: cover;
+      align-self: center;
+      }
+      }
+      
+      @media (min-width: 768px) {
+      .card {
+      flex-basis: 30%; 
+      margin-right: 20px; 
+      }
+      .card:last-child {
+      margin-right: 0; 
+      }
+      }
 
     .registro {
       background-color: #2CB742; /* Fondo del botón */
@@ -111,9 +183,8 @@ form > * {
       outline: none; /* Elimina el borde de enfoque al hacer clic en el botón */
       }
       
-      
       footer {
-        margin-top: 20px;
+        margin-top: 50px;
         background-color: #f2f2f2;
       
         bottom: 0;
@@ -160,3 +231,4 @@ form > * {
           margin: 10px;
         }
       }
+     
