@@ -63,11 +63,11 @@ def add_user():
     json_data = json.dumps(data)
     print(json_data)
     headers = {'Content-type': 'application/json'}
-
+   # send whatsapp
     response = requests.post(url_api_Wp, data=json_data, headers=headers)
 
     print(response)
-    return 'User registered successfully'
+    return get_files(tel)
 
 
 @app.route('/getfiles/<numero>')
@@ -178,7 +178,7 @@ def register():
     # ...
 
     # Devolver una respuesta JSON
-    response = {'message': 'Usuario registrado exitosamente '+ texto}
+    response = {'message': 'exitosamente '+ texto}
     return jsonify(response)
 
 

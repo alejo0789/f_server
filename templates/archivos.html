@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stilos_googlebar.css') }}">
     <title>Mis Archivos:</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stilos.css') }}">
+
 
     <style>
         .card {
@@ -67,7 +67,7 @@
               <div class="card-body">
                 <h5 class="card-title--medium">{{ archivo['name'] }}</h5>
                 <h5 class="card-text--small">última modificación : {{ archivo['modified_time']}}</h5>
-                <a href="#" class="btn btn-secondary  btn-sm" onclick="mostrarIframe('{{ url_for('mostrar_archivo', archivo=archivo['file_path']) }}')">Ver</a>
+      
 
                 <a href="{{ url_for('ver_archivo', archivo=archivo['file_path']) }}" class="btn btn-secondary  btn-sm">Ver no</a>
                         <a href="{{ url_for('descargar_archivo', archivo_name=archivo['name']) }}" class="btn btn-primary btn-sm">Descargar</a>

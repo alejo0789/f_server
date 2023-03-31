@@ -96,23 +96,7 @@
 
           return true;
         }
-
-        const paises = {
-  "1": "us",
-  "44": "gb",
-  "57": "co"
-  // Agrega más códigos de países y banderas aquí
-};
-
-const codigoPaisSelect = document.getElementById("codigo_pais");
-
-for (const codigoPais in paises) {
-  const option = document.createElement("option");
-  option.value = codigoPais;
-  option.text = `+${codigoPais} ${String.fromCodePoint(parseInt('1F1' + paises[codigoPais], 16))}`;
-  option.classList.add('flag-icon', `flag-icon-${paises[codigoPais]}`);
-  codigoPaisSelect.appendChild(option);
-}
+  
       </script>
 
 
