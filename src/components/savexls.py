@@ -14,8 +14,16 @@ def guardar_en_excel(texto, numero):
     fecha_formateada = fecha_actual.strftime('%d/%m/%Y')
     
     # Creates the name of the file with the person's number and trimester
-    name = numero + '_' + trimestre_actual + ".xlsx"
-    
+    #name = numero + '_' + trimestre_actual + ".xlsx"
+
+    mes_actual = fecha_actual.strftime('%m')
+    anio_actual = fecha_actual.strftime('%Y')
+
+    # Crea el nombre del archivo con el número de persona, mes y año actual
+    name = f"{numero}_{mes_actual}_{anio_actual}.xlsx"
+
+
+
     # Creates the path of the file
     folder_path = os.path.join('src', 'files', numero)
     ruta_archivo = os.path.join(folder_path, name)
