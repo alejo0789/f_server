@@ -3,8 +3,10 @@
 <head>
 	<title>NoteAir</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-   
-	<link rel="stylesheet" href="../static/stiloform.css">
+  <link rel="stylesheet" href="../static/flag-icons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icon-css/css/flag-icon.min.css">
+
+	<link rel="stylesheet" href="../static/stiloform copy.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -23,10 +25,14 @@
      
               <label for="nombre">Nombre completo</label>
               <input type="text"  id="name" name="nombre" required>
+              <label for="codigo_pais">Numero WhatsApp</label>
+              <div class="phone-container">
+                
+        
+               
               
-              <label for="telefono">Teléfono Whatsapp</label>
-              <input type="text"  id="telefono" name="telefono" required>
-              
+                <input type="text" id="telefono" name="telefono" placeholder="Incluir codigo pais 57 para Col" value="57" pattern="\d{6,}" required>
+              </div>
               <label for="email">Email</label>
               <input type="email" id="email" name="email" required>
               
@@ -91,6 +97,23 @@
 
           return true;
         }
+
+        const paises = {
+  "1": "us",
+  "44": "gb",
+  "57": "co"
+  // Agrega más códigos de países y banderas aquí
+};
+
+const codigoPaisSelect = document.getElementById("codigo_pais");
+
+for (const codigoPais in paises) {
+  const option = document.createElement("option");
+  option.value = codigoPais;
+  option.text = `+${codigoPais} ${String.fromCodePoint(parseInt('1F1' + paises[codigoPais], 16))}`;
+  option.classList.add('flag-icon', `flag-icon-${paises[codigoPais]}`);
+  codigoPaisSelect.appendChild(option);
+}
       </script>
 
 

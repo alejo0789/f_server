@@ -1,3 +1,9 @@
+
+/* Estilos generales */
+* {
+  box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #FBFBFD;
@@ -58,70 +64,98 @@ body {
     display: block;
     margin-bottom: 10px;
     color: #555555;
-  }
-  input[type="text"],
+  }/* Contenedor principal */
+form {
+  max-width: 500px;
+  margin: auto;
+  padding: 20px;
+
+  border-radius: 10px;
+}
+
+/* Etiquetas */
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+/* Inputs */
+input[type="text"],
 input[type="email"],
 input[type="select"],
 input[type="password"] {
-  width: 90%;
+  width: 100%;
   padding: 10px;
-  border: 1px solid #cccccc;
-  border-radius: 7px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
   font-size: 16px;
-  margin-bottom: 20px;
-  box-sizing: border-box;
+  margin-bottom: 10px;
 }
-
-input[type="text"]:focus, 
-input[type="email"]:focus, 
-input[type="password"]:focus {
+.phone-container select {
+ height: 45px;
+  font-size: 16px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+select:focus {
   outline: none;
-  border: 1px solid #2CB742; 
+  border: 1px solid #2CB742;
 }
 
+/* Botón de submit */
 input[type="submit"] {
   background-color: #2CB742;
   color: #ffffff;
   border: none;
   padding: 10px 20px;
-  border-radius: 3px;
+  border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
 }
 
 input[type="submit"]:hover {
   background-color: #70d37f;
 }
 
+/* Contenedor de teléfono */
 .phone-container {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  margin-bottom: 20px;
-  width: 95%; 
+  margin-bottom: 10px;
 }
 
 .phone-container label {
+  flex-basis: 120px;
   margin-right: 10px;
 }
 
 .phone-container select {
-  width: 100px;
+
   margin-right: 10px;
-  padding: 10px;
-  border: 1px solid #cccccc;
-  border-radius: 7px;
-  font-size: 16px;
-  box-sizing: border-box;
 }
 
 .phone-container input {
-
-  /* Restar el ancho de los otros elementos del contenedor */
-  margin-right: 10px;
+  flex-grow: 1;
 }
 
-  
-  
+/* Checkbox y texto de términos y condiciones */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.checkbox-container input[type="checkbox"] {
+  margin-right: 10px;
+}
   
   
   footer {
