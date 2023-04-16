@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stilos_googlebar.css') }}">
@@ -8,6 +9,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stilos.css') }}">
 
+    <link rel="stylesheet" href="https://unpkg.com/x-data-spreadsheet@1.1.5/dist/xspreadsheet.css">
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
     <style>
         .card {
             border: 1px solid #e2e2e2;
@@ -41,21 +44,22 @@
         </script>
 </head>
 <body>
-    <div class="container">
-        <h1>Control de mis finanzas:</h1>
-        
-        <div class="search-container">
-          <form action="{{ url_for('buscar_archivos') }}" method="get">
+  <div class="container">
+    <h1 style="font-size: 2.5vw;">Control de mis finanzas:</h1>
+    
+    <div class="search-container">
+        <form action="{{ url_for('buscar_archivos', folder='3105487076') }}" method="get">
             <div class="input-group">
-              <input type="text" class="form-control" name="fecha" placeholder="Buscar por fecha...">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="submit">
-                  <i class="fas fa-search"></i>
-                </button>
-              </div>
+                <input type="text" class="form-control" name="mes" placeholder="Buscar por mes...">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
             </div>
-          </form>
-        </div>
+        </form>
+    </div>
+</div>
 
         <div class="row">
           {% for archivo in archivos %}
@@ -65,23 +69,39 @@
               <div class="card-body">
                 <h5 class="card-title--medium">{{ archivo['name'] }}</h5>
                 <h5 class="card-text--small">última modificación : {{ archivo['modified_time']}}</h5>
-                <a href="#" class="btn btn-secondary  btn-sm" onclick="mostrarIframe('{{ url_for('mostrar_archivo', archivo=archivo['file_path']) }}')">Ver</a>
-
-                <a href="{{ url_for('ver_archivo', archivo=archivo['file_path']) }}" class="btn btn-secondary  btn-sm">Ver no</a>
+              
+                <a href="#" onclick="fetchArchivo('3105487076_ene_mar.xlsx')">Ver archivo</a>
+                <a href="{{ url_for('ver_archivos', archivo=archivo['file_path']) }}" class="btn btn-secondary  btn-sm">Ver </a>
                 <a href="{{ archivo['file_path'] }}" class="btn btn-primary  btn-sm">Descargar</a>
+
+              
               </div>
             </div>
           </div>
-          {% endfor %}
+          
+    <iframe src="{{ url_for('ver_archivos', archivo=archivo['file_path']) }}"></iframe>
+         
         </div>
         </div>
     </div>
+    {% endfor %}
+    <script>
 
-    
+function fetchArchivo(ruta) {
+  console.log(ruta)
+fetch("/ver_archivos/3105487076_ene-mar.xlsx")
+  .then(response => response.arrayBuffer())
+  .then(data => {
+    const workbook = XLSX.read(data, {type: 'array'});
+    const sheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[sheetName];
+    const htmlTable = XLSX.utils.sheet_to_html(worksheet);
+    document.getElementById('tabla-archivo').innerHTML = htmlTable;
+  });}
+     
 
-    <div id="iframe-container">
-  
+    </script>
 
-    </div>
+<div id="tabla-archivo"></div>
 </body>
 </html>
