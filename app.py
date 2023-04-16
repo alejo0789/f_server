@@ -9,6 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from models import db
 from models import users
 import json
+import datetime as dt
 
 from src.components.savexls import guardar_en_excel
 
@@ -111,28 +112,33 @@ def descargar_archivo(archivo_name):
     match = re.search(r'^(\d+)_', archivo_name)
     if match:
      folder = match.group(1)
-    else:
-      folder=573105487076
-    #folder_path = os.path.join('src', 'files', folder, archivo)
-    # Verificar que la ruta del archivo existe
-    # y extraer el nombre del archivo de la ruta
-   
+
 
 
     # Usar la función send_file para enviar el archivo al usuario
     return send_file("src/files/"+folder+"/"+archivo_name, as_attachment=True)
 
+@app.route('/sendfile/<number>')
+def sendfile(number):
+    
+    folder = number
 
-@app.route('/descargar2/<ruta_archivo>')
-def descargar_archivo2(ruta_archivo):
-    folder_path = os.path.join(ruta_archivo)
-    # Verificar que la ruta del archivo existe
-    # y extraer el nombre del archivo de la ruta
-    nombre_archivo = os.path.basename(ruta_archivo)
-    print(ruta_archivo)
-    print("Nombre "+nombre_archivo)
-    ruta_archivostring=ruta_archivo
-    return send_file('src/files/573105487076/573105487076_ene-mar.xlsx', as_attachment=True)
+    fecha_actual = dt.datetime.now()
+
+    # Convertir la fecha actual en una cadena de texto con formato dd/mm/yyyy
+    fecha_formateada = fecha_actual.strftime('%d/%m/%Y')
+    
+    mes_actual = fecha_actual.strftime('%m')
+    anio_actual = fecha_actual.strftime('%Y')
+
+    # Crea el nombre del archivo con el número de persona, mes y año actual
+    file_name = f"{number}_{mes_actual}_{anio_actual}.xlsx"
+    
+
+
+
+    # Usar la función send_file para enviar el archivo al usuario
+    return send_file("src/files/"+folder+"/"+file_name, as_attachment=True)
 
 @app.route('/ver_archivo/<path:archivo>')
 def ver_archivo(archivo):
@@ -141,7 +147,7 @@ def ver_archivo(archivo):
 
 @app.route('/mostrar_archivo/<archivo>')
 def mostrar_archivo(archivo):
-    print("entrando")
+ 
     return send_file('src/files/573105487076/'+archivo, as_attachment=True)
 
 
