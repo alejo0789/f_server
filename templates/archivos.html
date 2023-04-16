@@ -79,28 +79,12 @@
             </div>
           </div>
           
-    <iframe src="{{ url_for('ver_archivos', archivo=archivo['file_path']) }}"></iframe>
-         
+   
         </div>
         </div>
     </div>
     {% endfor %}
-    <script>
-
-function fetchArchivo(ruta) {
-  console.log(ruta)
-fetch("/ver_archivos/3105487076_ene-mar.xlsx")
-  .then(response => response.arrayBuffer())
-  .then(data => {
-    const workbook = XLSX.read(data, {type: 'array'});
-    const sheetName = workbook.SheetNames[0];
-    const worksheet = workbook.Sheets[sheetName];
-    const htmlTable = XLSX.utils.sheet_to_html(worksheet);
-    document.getElementById('tabla-archivo').innerHTML = htmlTable;
-  });}
-     
-
-    </script>
+  
 
 <div id="tabla-archivo"></div>
 </body>
