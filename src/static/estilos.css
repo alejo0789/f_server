@@ -14,3 +14,15 @@
     height: 50px;
     margin-right: 10px;
   }
+  div input[type="checkbox"],
+  div span {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  div span {
+    margin-left: 5px;
+  }
+  a:hover {
+    text-decoration: underline;
+  }

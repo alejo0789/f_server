@@ -4,11 +4,26 @@ from datetime import datetime
 import requests
 import glob
 import fnmatch
-import urllib.parse
+import re
+from flask_sqlalchemy import SQLAlchemy
+from models import db
+from models import users
+import json
 
 from src.components.savexls import guardar_en_excel
 
 app = Flask(__name__)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://userdb_r5u6_user:hAYrARqcSxV8zkxzMt2QhT1Tl5vpP1Ea@dpg-cg9k6epmbg54mbfpjv0g-a.oregon-postgres.render.com/userdb_r5u6"
+#"postgresql://userdb_r5u6_user:hAYrARqcSxV8zkxzMt2QhT1Tl5vpP1Ea@dpg-cg9k6epmbg54mbfpjv0g-a/userdb_r5u6"
+#"postgresql://userdb_r5u6_user:hAYrARqcSxV8zkxzMt2QhT1Tl5vpP1Ea@dpg-cg9k6epmbg54mbfpjv0g-a.oregon-postgres.render.com/userdb_r5u6" #ojo modificar 
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
+db = SQLAlchemy(app)
+
+with app.app_context():
+    db.create_all()
 
 @app.route('/')
 
@@ -17,6 +32,42 @@ def index():
     path = "src/files"
     archivos = os.listdir(path)
     return render_template("index.html")
+
+
+
+@app.route("/registro")
+def registro():
+
+    return render_template("registro.html")
+
+
+
+@app.route("/add_user", methods=['POST'])
+
+
+def add_user():
+    name = request.form['nombre']
+    tel = request.form['telefono']
+    email = request.form['email']
+    password = request.form['password']
+    #email = request.form['email']
+    user = users(name=name, email=email, telephone=tel, password=password)
+    db.session.add(user)
+    db.session.commit()
+
+    #send data to whatsapp and get notification welcome
+    url_api_Wp="https://wp-api-render.onrender.com/whatsapp"
+    #url_api_Wp = "http://localhost:3000/whatsapp"
+    data = {"texto": "hola", "number": tel}
+
+    json_data = json.dumps(data)
+    print(json_data)
+    headers = {'Content-type': 'application/json'}
+   # send whatsapp
+    response = requests.post(url_api_Wp, data=json_data, headers=headers)
+
+    print(response)
+    return get_files(tel)
 
 
 @app.route('/getfiles/<numero>')
@@ -55,13 +106,43 @@ def listar_archivos():
     return render_template('archivos.html', archivos=archivos)
 
 
-@app.route('/descargar/<filename>')
-def descargar_archivo(filename):
-    archivo_path = 'src/files/3105487076/' + filename
-    return send_file(archivo_path, as_attachment=False)
+@app.route('/descargar/<archivo_name>')
+def descargar_archivo(archivo_name):
+    match = re.search(r'^(\d+)_', archivo_name)
+    if match:
+     folder = match.group(1)
+    else:
+      folder=573105487076
+    #folder_path = os.path.join('src', 'files', folder, archivo)
+    # Verificar que la ruta del archivo existe
+    # y extraer el nombre del archivo de la ruta
+   
 
 
+    # Usar la función send_file para enviar el archivo al usuario
+    return send_file("src/files/"+folder+"/"+archivo_name, as_attachment=True)
 
+
+@app.route('/descargar2/<ruta_archivo>')
+def descargar_archivo2(ruta_archivo):
+    folder_path = os.path.join(ruta_archivo)
+    # Verificar que la ruta del archivo existe
+    # y extraer el nombre del archivo de la ruta
+    nombre_archivo = os.path.basename(ruta_archivo)
+    print(ruta_archivo)
+    print("Nombre "+nombre_archivo)
+    ruta_archivostring=ruta_archivo
+    return send_file('src/files/573105487076/573105487076_ene-mar.xlsx', as_attachment=True)
+
+@app.route('/ver_archivo/<path:archivo>')
+def ver_archivo(archivo):
+
+    return render_template('ver_archivo.html', archivo=archivo)
+
+@app.route('/mostrar_archivo/<archivo>')
+def mostrar_archivo(archivo):
+    print("entrando")
+    return send_file('src/files/573105487076/'+archivo, as_attachment=True)
 
 
 from datetime import datetime
@@ -125,19 +206,14 @@ def register():
     # ...
 
     # Devolver una respuesta JSON
-    response = {'message': 'Usuario registrado exitosamente '+ texto}
+    response = {'message': 'exitosamente '+ texto}
     return jsonify(response)
 
 
-@app.route('/ver_archivos/<archivo>')
-def ver_archivos(archivo):
-    archivo = request.args.get('archivo', '')
-   # nombre_archivo = os.path.basename(archivo)
-    directorio_archivo = os.path.dirname(archivo)
+@app.route('/terminos_y_condiciones')
+def terminos():
    
-    return send_from_directory(directory='src/files/3105487076', path= "3105487076_ene-mar.xlsx")
-
-
+    return render_template('terminos.html')
 
 
 

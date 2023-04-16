@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>NoteAir</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+ 
+
+	<link rel="stylesheet" href="../static/stiloformcopy.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    {% include 'navigation.html' %}
+    <div class="container">
+ 
+       <div class="card">
+        <div class="card-body ">
+          
+
+          <div style="text-align: center;">
+            <img src="../static/icons/whatsappfondo.png">
+   
+              </div>
+            <form action="/add_user" onsubmit="return validateForm()"  method="POST" >
+     
+              <label for="nombre">Nombre completo</label>
+              <input type="text"  id="name" name="nombre" required>
+              <label for="codigo_pais">Numero WhatsApp</label>
+              <div class="phone-container">
+                
+        
+               
+              
+                <input type="text" id="telefono" name="telefono" placeholder="Incluir codigo pais 57 para Col" value="57" pattern="\d{6,}" required>
+              </div>
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required>
+              
+              <label for="password">Contraseña</label>
+              <input type="password" id="password" name="password" required>
+              
+              <label for="password_confirm">Repetir Contraseña</label>
+              <input type="password" id="password_confirm" name="password_confirm" required>
+              <div>
+                <input type="checkbox" id="terms_and_conditions" name="terms_and_conditions" required>
+                <span>
+                  Acepto los <a href="/terminos_y_condiciones" style="color: green; text-decoration: underline;">términos y condiciones</a>
+                </span>
+              </div>
+              </br>
+
+            <input type="submit" value="Registrarse">
+          </form>
+        </div>
+        
+      </div>
+    </div>
+
+    {% include 'footer.html' %}
+
+
+
+    <script>
+        function validateForm() {
+          var name = document.getElementById("name").value;
+          var email = document.getElementById("email").value;
+          var password = document.getElementById("password").value;
+          var passwordConfirm = document.getElementById("password_confirm").value;
+          var telefono = document.getElementById("telefono").value;
+
+
+          if (password != passwordConfirm) {
+            alert("Las contraseñas no coinciden.");
+            return false;
+          }
+          if (!/^\d+$/.test(telefono)) {
+          alert("El teléfono solo debe contener números.");
+          return false;
+           }
+
+  // Validar el formato del email
+  if (!/\S+@\S+\.\S+/.test(email)) {
+    alert("El email no es válido.");
+    return false;
+  }
+
+
+
+  // Validar que la contraseña tenga al menos 6 caracteres
+  if (password.length < 6) {
+    alert("La contraseña debe tener al menos 6 caracteres.");
+    return false;
+  }
+
+  // Encriptar la contraseña
+  document.getElementById("password").value = btoa(password);
+
+          return true;
+        }
+  
+      </script>
+
+
+</body>
+</html>

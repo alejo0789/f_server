@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stilos_googlebar.css') }}">
     <title>Mis Archivos:</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stilos.css') }}">
+
 
     <link rel="stylesheet" href="https://unpkg.com/x-data-spreadsheet@1.1.5/dist/xspreadsheet.css">
     <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
@@ -62,6 +62,8 @@
 </div>
 
         <div class="row">
+            {{folder}}
+            Ruta  {{ruta }}
           {% for archivo in archivos %}
           <div class="col-lg-2 col-md-4 col-sm-6">
             <div class="card">
@@ -69,12 +71,10 @@
               <div class="card-body">
                 <h5 class="card-title--medium">{{ archivo['name'] }}</h5>
                 <h5 class="card-text--small">última modificación : {{ archivo['modified_time']}}</h5>
-              
-                <a href="#" onclick="fetchArchivo('3105487076_ene_mar.xlsx')">Ver archivo</a>
-                <a href="{{ url_for('ver_archivos', archivo=archivo['file_path']) }}" class="btn btn-secondary  btn-sm">Ver </a>
-                <a href="{{ archivo['file_path'] }}" class="btn btn-primary  btn-sm">Descargar</a>
+      
 
-              
+                <a href="{{ url_for('ver_archivo', archivo=archivo['file_path']) }}" class="btn btn-secondary  btn-sm">Ver no</a>
+                        <a href="{{ url_for('descargar_archivo', archivo_name=archivo['name']) }}" class="btn btn-primary btn-sm">Descargar</a>
               </div>
             </div>
           </div>
