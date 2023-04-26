@@ -1,0 +1,53 @@
+.container {
+    
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+    height: 600px;
+   
+ 
+  }
+  
+  .box {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    text-align: center;
+     width: 30%;
+  }
+  
+  .box h2 {
+    margin-bottom: 10px;
+    font-size: 24px;
+  }
+  
+  .box p {
+    font-size: 18px;
+    margin: 0;
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .container {
+        display: flex;
+     
+        justify-content: space-between;
+     
+      }
+    .box {
+      margin-bottom: 20px;
+      
+      width: 100%;
+    }
+  
+  .box h2 {
+    margin-bottom: 10px;
+    font-size: 3vw;
+  }
+  
+  .box p {
+    font-size: 3vw;
+    margin: 0;
+}}
+  

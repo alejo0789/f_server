@@ -68,7 +68,7 @@ def add_user():
     response = requests.post(url_api_Wp, data=json_data, headers=headers)
 
     print(response)
-    return get_files(tel)
+    return resumen()
 
 
 @app.route('/getfiles/<numero>')
@@ -221,6 +221,12 @@ def terminos():
    
     return render_template('terminos.html')
 
+
+
+@app.route('/resumen')
+def resumen():
+   
+    return render_template('resumen.html')
 
 
 if __name__ == '__main__':
