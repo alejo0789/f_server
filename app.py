@@ -231,6 +231,9 @@ def resumen():
    
     return render_template('resumen.html')
 
-
+@app.route('/graphs')
+def graphs():
+   
+    return render_template('graphs.html')
 if __name__ == '__main__':
     app.run()
