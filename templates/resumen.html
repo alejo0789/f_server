@@ -24,16 +24,17 @@
 	<div class="container">
 		<div class="box">
 			<h2>Ingresos</h2>
-			<canvas id="myChart"></canvas>
-		
+			<canvas id="canvas_ingresos"></canvas>
+			<h2>Ver Detalle</h2>
 		</div>
 		<div class="box">
 			<h2>Gastos</h2>
-			<p>$1,200,000</p>
+			<canvas id="canvas_gastos"></canvas>
 		</div>
 		<div class="box">
 			<h2>Ahorros</h2>
-			<p>$2,300,000</p>
+			<canvas id="canvas_ahorros"></canvas>
+		
 		</div>
 	</div>
 
@@ -44,14 +45,57 @@
 </body>
 
 <script>
-	const ctx = document.getElementById('myChart');
+	const ctx = document.getElementById('canvas_ingresos');
   
 	new Chart(ctx, {
 	  type: 'line',
 	  data: {
 		labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
 		datasets: [{
-		  label: '# of Votes',
+		  label: 'Ingresos',
+		  data: [1000, 2000, 1000, 4000, 2000, 6000],
+		  borderWidth: 1,
+		  borderColor: '#2CB742',
+		}]
+	  },
+	  options: {
+		scales: {
+		  y: {
+			beginAtZero: true
+		  }
+		}
+	  }
+	});
+
+	const ctx2 = document.getElementById('canvas_gastos');
+  
+	new Chart(ctx2, {
+	  type: 'line',
+	  data: {
+		labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+		datasets: [{
+		  label: 'Ingresos',
+		  data: [1000, 2000, 1000, 4000, 2000, 6000],
+		  borderWidth: 1,
+		  borderColor: '#2CB742',
+		}]
+	  },
+	  options: {
+		scales: {
+		  y: {
+			beginAtZero: true
+		  }
+		}
+	  }
+	});
+	const ctx3 = document.getElementById('canvas_ahorros');
+  
+	new Chart(ctx3, {
+	  type: 'line',
+	  data: {
+		labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+		datasets: [{
+		  label: 'Ingresos',
 		  data: [1000, 2000, 1000, 4000, 2000, 6000],
 		  borderWidth: 1,
 		  borderColor: '#2CB742',
