@@ -47,13 +47,14 @@
 	const ctx = document.getElementById('myChart');
   
 	new Chart(ctx, {
-	  type: 'bar',
+	  type: 'line',
 	  data: {
-		labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+		labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
 		datasets: [{
 		  label: '# of Votes',
-		  data: [12, 19, 3, 5, 2, 3],
-		  borderWidth: 1
+		  data: [1000, 2000, 1000, 4000, 2000, 6000],
+		  borderWidth: 1,
+		  borderColor: '#2CB742',
 		}]
 	  },
 	  options: {
