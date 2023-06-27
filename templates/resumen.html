@@ -37,10 +37,13 @@
 		
 		</div>
 	</div>
-
+<div id="wdr-component"></div>
 	<!-- Aquí puedes agregar el resto de tu contenido HTML -->
     {% include 'footer.html' %}
 
+<link href="https://cdn.webdatarocks.com/latest/webdatarocks.min.css" rel="stylesheet"/>
+<script src="https://cdn.webdatarocks.com/latest/webdatarocks.toolbar.min.js"></script>
+<script src="https://cdn.webdatarocks.com/latest/webdatarocks.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 
@@ -74,7 +77,7 @@
 	  data: {
 		labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
 		datasets: [{
-		  label: 'Ingresos',
+		  label: 'Gastos',
 		  data: [1000, 2000, 1000, 4000, 2000, 6000],
 		  borderWidth: 1,
 		  borderColor: '#4B0076',
@@ -95,7 +98,7 @@
 	  data: {
 		labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
 		datasets: [{
-		  label: 'Ingresos',
+		  label: 'Ahorros',
 		  data: [1000, 2000, 1000, 4000, 2000, 6000],
 		  borderWidth: 1,
 		  borderColor: '#0080FF',
@@ -109,5 +112,17 @@
 		}
 	  }
 	});
+
+
+
+var pivot = new WebDataRocks({
+	container: "#wdr-component",
+	toolbar: true,
+	report: {
+		dataSource: {
+			filename: "https://cdn.webdatarocks.com/data/data.csv"
+		}
+	}
+});
   </script>
 </html>
