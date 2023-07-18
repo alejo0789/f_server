@@ -12,8 +12,19 @@ import json
 import datetime as dt
 
 from src.components.savexls import guardar_en_excel
+from flask_login import LoginManager
+#login extenssions
+from werkzeug.urls import url_parse
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+from forms import LoginForm
+from users import User
 
+from flask import (render_template, redirect, url_for,
+                   request, current_app)
 app = Flask(__name__)
+
+app.config['SECRET_KEY'] = '94b3949f15d6bab2d2892bb8decd1e1f7e2b2fb'
+login_manager = LoginManager(app)
 
 #app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://userdb_r5u6_user:hAYrARqcSxV8zkxzMt2QhT1Tl5vpP1Ea@dpg-cg9k6epmbg54mbfpjv0g-a.oregon-postgres.render.com/userdb_r5u6"
 #"postgresql://userdb_r5u6_user:hAYrARqcSxV8zkxzMt2QhT1Tl5vpP1Ea@dpg-cg9k6epmbg54mbfpjv0g-a/userdb_r5u6"
@@ -26,14 +37,68 @@ app = Flask(__name__)
 #with app.app_context():
  #   db.create_all()
 
-@app.route('/')
+# Mock User class for demonstration purposes
+class User(UserMixin):
+    def __init__(self, user_id):
+        self.id = user_id
+
+
+# User loader function required by Flask-Login
+@login_manager.user_loader
+def load_user(user_id):
+    return User(user_id)
+
 
 @app.route("/")
 def index():
-    path = "src/files"
-    archivos = os.listdir(path)
     return render_template("index.html")
+"""
+@app.route('/')
+@login_required
+def home():
+    user_id = load_user(request.args.get('user_id')).id
+    return 'Logged in as: ' + str(user_id)
+"""
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        user_id = request.form['user_id']
+        
+        # Perform authentication here, e.g., check against a database
+        # You can modify this part to fit your authentication logic
+
+        # For simplicity, we'll use a hard-coded user_id
+        if user_id == '12345':
+            user = User(user_id)
+            login_user(user)
+            return redirect('/?user_id=' + user_id)
+        else:
+            return 'Invalid user ID'
+    else:
+        return render_template('login.html')
+"""
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.get_by_email(form.email.data)
+        if user is not None and user.check_password(form.password.data):
+            login_user(user, remember=form.remember_me.data)
+            next_page = request.args.get('next')
+            if not next_page or url_parse(next_page).netloc != '':
+                next_page = url_for('index')
+            return redirect(next_page)
+    return render_template('login_form.html', form=form)
+"""
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect('/login')
 
 
 @app.route("/registro")
@@ -116,8 +181,6 @@ def descargar_archivo(archivo_name):
     if match:
      folder = match.group(1)
 
-
-
     # Usar la función send_file para enviar el archivo al usuario
     return send_file("src/files/"+folder+"/"+archivo_name, as_attachment=True)
 
@@ -136,13 +199,10 @@ def sendfile(number):
 
     # Crea el nombre del archivo con el número de persona, mes y año actual
     file_name = f"{number}_{mes_actual}_{anio_actual}.xlsx"
-    
-
-
 
     # Usar la función send_file para enviar el archivo al usuario
     return send_file("src/files/"+folder+"/"+file_name, as_attachment=True)
-
+"""
 @app.route('/ver_archivo/<path:archivo>')
 def ver_archivo(archivo):
 
@@ -203,7 +263,7 @@ def buscar_archivos(folder):
                         'file_path': file_path,
                     })
     return render_template('archivos.html', archivos=files)
-
+"""
 @app.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
@@ -227,6 +287,7 @@ def terminos():
 
 
 @app.route('/resumen')
+#f@login_required
 def resumen():
    
     return render_template('resumen.html')
