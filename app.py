@@ -26,9 +26,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask import (render_template, redirect, url_for,
                    request, current_app)
 
-###################################################
-#create connection with a local database
-import connection_local as localConnection
+
 
 
 
@@ -55,13 +53,9 @@ login_manager = LoginManager(app)
 
 
 
-"create local connection with posgresql"
-database="money_tracker"
-user='postgres'
-hostname="localhost"
-password='root'
-port="5432"
-print('postgresql://'+user+':'+password+'@'+hostname+':'+port+'/'+database)
+"""create local connection with posgresql
+
+print('postgresql://'+user+':'+password+'@'+hostname+':'+port+'/'+database)"""
 
 #local connection
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://'+user+':'+password+'@'+hostname+':'+port+'/'+database
@@ -69,6 +63,11 @@ print('postgresql://'+user+':'+password+'@'+hostname+':'+port+'/'+database)
 #app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:JHfv03AiFBRmDPe@db-money-tracker.fly.dev:5432/money_tracker'
 
 #neon.tech connection 
+database="money_tracker"
+user='postgres'
+hostname="localhost"
+password='root'
+port="5432"
 app.config['SQLALCHEMY_DATABASE_URI']='postgresql://alejo0789:94lGBRCAwHvh@ep-square-dream-61055761.us-east-2.aws.neon.tech/money_tracker'
 from sqlalchemy import create_engine
 
