@@ -14,7 +14,7 @@ import datetime as dt
 from src.components.savexls import guardar_en_excel, separar_texto_y_numeros, define_tipo
 from flask_login import LoginManager
 
-
+from dotenv import load_dotenv
 
 #login extenssions
 
@@ -63,17 +63,22 @@ print('postgresql://'+user+':'+password+'@'+hostname+':'+port+'/'+database)"""
 #app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:JHfv03AiFBRmDPe@db-money-tracker.fly.dev:5432/money_tracker'
 
 #neon.tech connection 
-database="money_tracker"
-user='postgres'
-hostname="localhost"
-password='root'
-port="5432"
-app.config['SQLALCHEMY_DATABASE_URI']='postgresql://alejo0789:94lGBRCAwHvh@ep-square-dream-61055761.us-east-2.aws.neon.tech/money_tracker'
-from sqlalchemy import create_engine
+# Load environment variables from .env file
+load_dotenv()
+# Database connection configuration using environment variables
+db_user = os.getenv('DB_USER')
+db_password = os.getenv('DB_PASSWORD')
+db_hostname = os.getenv('DB_HOSTNAME')
+db_port = os.getenv('DB_PORT')
+db_name = os.getenv('DB_NAME')
 
-#CONNSTR = f'postgresql://alejo0789:94lGBRCAwHvh@ep-square-dream-61055761.us-east-2.aws.neon.tech/money_tracker'
+# Construct the database URI
+db_uri = f'postgresql://{db_user}:{db_password}@{db_hostname}/{db_name}'
+app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-#engine = create_engine(CONNSTR)
+
+
 db.init_app(app) 
 
 with app.app_context():
