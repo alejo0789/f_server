@@ -7,40 +7,25 @@ import fnmatch
 import re
 from flask_sqlalchemy import SQLAlchemy
 from models import db
-from models import Users, Transaction
+from models import users
 import json
 import datetime as dt
 
-from src.components.savexls import guardar_en_excel, separar_texto_y_numeros, define_tipo
+from src.components.savexls import guardar_en_excel
 from flask_login import LoginManager
-
-
-
 #login extenssions
-
 from werkzeug.urls import url_parse
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
-
+from forms import LoginForm
 from users import User
-from werkzeug.security import generate_password_hash, check_password_hash
+
 from flask import (render_template, redirect, url_for,
                    request, current_app)
-
-###################################################
-#create connection with a local database
-import connection_local as localConnection
-
-
-
-#####################################################
-
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = '94b3949f15d6bab2d2892bb8decd1e1f7e2b2fb'
 login_manager = LoginManager(app)
 
-"in comments due to the online database it is not working"
-##########################################################################################
 #app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://userdb_r5u6_user:hAYrARqcSxV8zkxzMt2QhT1Tl5vpP1Ea@dpg-cg9k6epmbg54mbfpjv0g-a.oregon-postgres.render.com/userdb_r5u6"
 #"postgresql://userdb_r5u6_user:hAYrARqcSxV8zkxzMt2QhT1Tl5vpP1Ea@dpg-cg9k6epmbg54mbfpjv0g-a/userdb_r5u6"
 #"postgresql://userdb_r5u6_user:hAYrARqcSxV8zkxzMt2QhT1Tl5vpP1Ea@dpg-cg9k6epmbg54mbfpjv0g-a.oregon-postgres.render.com/userdb_r5u6" #ojo modificar 
@@ -51,38 +36,8 @@ login_manager = LoginManager(app)
 
 #with app.app_context():
  #   db.create_all()
-#########################################################################################
 
-
-
-"create local connection with posgresql"
-database="money_tracker"
-user='postgres'
-hostname="localhost"
-password='root'
-port="5432"
-print('postgresql://'+user+':'+password+'@'+hostname+':'+port+'/'+database)
-
-#local connection
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://'+user+':'+password+'@'+hostname+':'+port+'/'+database
-#fly connection does not working
-#app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:JHfv03AiFBRmDPe@db-money-tracker.fly.dev:5432/money_tracker'
-
-#neon.tech connection 
-app.config['SQLALCHEMY_DATABASE_URI']='postgresql://alejo0789:94lGBRCAwHvh@ep-square-dream-61055761.us-east-2.aws.neon.tech/money_tracker'
-from sqlalchemy import create_engine
-
-#CONNSTR = f'postgresql://alejo0789:94lGBRCAwHvh@ep-square-dream-61055761.us-east-2.aws.neon.tech/money_tracker'
-
-#engine = create_engine(CONNSTR)
-db.init_app(app) 
-
-with app.app_context():
-    db.create_all()
-
-########################################################################################
-# Mock User class for demonstration purposes to login session
-
+# Mock User class for demonstration purposes
 class User(UserMixin):
     def __init__(self, user_id):
         self.id = user_id
@@ -104,11 +59,6 @@ def home():
     user_id = load_user(request.args.get('user_id')).id
     return 'Logged in as: ' + str(user_id)
 """
-@app.route('/terminos_y_condiciones')
-def terminos():
-   
-    return render_template('terminos.html')
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -127,7 +77,22 @@ def login():
             return 'Invalid user ID'
     else:
         return render_template('login.html')
-
+"""
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.get_by_email(form.email.data)
+        if user is not None and user.check_password(form.password.data):
+            login_user(user, remember=form.remember_me.data)
+            next_page = request.args.get('next')
+            if not next_page or url_parse(next_page).netloc != '':
+                next_page = url_for('index')
+            return redirect(next_page)
+    return render_template('login_form.html', form=form)
+"""
 
 @app.route('/logout')
 @login_required
@@ -147,23 +112,18 @@ def registro():
 
 
 def add_user():
+    return resumen()
 
-    #cursor = localConnection.conn.cursor()
-    
- 
-
-
+# it was returned resumen because the database is not working
     name = request.form['nombre']
     tel = request.form['telefono']
     email = request.form['email']
-    password =generate_password_hash(request.form['password'])
-    
-
- 
-    user = Users(username=name, email=email, phone=tel, password=password)
+    password = request.form['password']
+    #email = request.form['email']
+    user = users(name=name, email=email, telephone=tel, password=password)
     db.session.add(user)
     db.session.commit()
-  
+
     #send data to whatsapp and get notification welcome
     url_api_Wp="https://wp-api-render.onrender.com/whatsapp"
     #url_api_Wp = "http://localhost:3000/whatsapp"
@@ -178,7 +138,7 @@ def add_user():
     print(response)
     return resumen()
 
-#this functions returns the files according with the number 
+
 @app.route('/getfiles/<numero>')
 def get_files(numero):
     folder_path = os.path.join('src', 'files', numero)
@@ -206,14 +166,14 @@ def utility_processor():
         return datetime.fromtimestamp(value).strftime(format)
     return dict(format_datetime=format_datetime)
 
-"""
+
 @app.route('/listfiles')
 def listar_archivos():
     api_url = 'https://f-server2.onrender.com/getfiles'
     response = requests.get(api_url)
     archivos = response.json()
     return render_template('archivos.html', archivos=archivos)
-"""
+
 
 @app.route('/descargar/<archivo_name>')
 def descargar_archivo(archivo_name):
@@ -306,37 +266,23 @@ def buscar_archivos(folder):
 """
 @app.route('/register', methods=['POST'])
 def register():
-    
     data = request.get_json()
     texto = data['text']
     number= data['numero']
-    #check if the phone exist in the databse
-    user = Users.query.filter_by(phone=number).first()
-    if not user:
-        response = {'message': 'Debes resgistrarte es muy sencillo, ingresa a www.noteair.com '},404
-        return jsonify(response)
-       
-    #guardar_en_excel(texto, number)
-
-    #call the function from savexls.py to separate text form numbers
-    justText, justValue  = separar_texto_y_numeros(texto)
-    # Define the type or category of this value (ingreso, ahorro o gasto)
-    tipo, texto = define_tipo(texto.lower())
-     # Perform the database insertion
-    current_timestamp = datetime.utcnow()
-    try:
-        ingreso_transaction = Transaction(user_id=user.id, category=tipo, amount=justValue,date_time=current_timestamp, description=justText)
-        db.session.add(ingreso_transaction)
-        db.session.commit()
-           # Devolver una respuesta JSON
-        response = {'message': 'exitosamente '+ texto}
-        return jsonify(response),200
-       
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({'error': str(e)}), 500
+    guardar_en_excel(texto, number)
    
+    # Procesar la información recibida como sea necesario
+    # ...
 
+    # Devolver una respuesta JSON
+    response = {'message': 'exitosamente '+ texto}
+    return jsonify(response)
+
+
+@app.route('/terminos_y_condiciones')
+def terminos():
+   
+    return render_template('terminos.html')
 
 
 
